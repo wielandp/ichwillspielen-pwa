@@ -1,0 +1,29 @@
+<div class="toolbar-container mat-elevation-z8">
+    <!-- Toolbar [class]="currentLayout"  -->
+    <div class="toolbar" [class.d-large]="_eventServer.currentLayout=='large'" role="banner">
+        <button mat-icon-button [class.d-large]="_eventServer.currentLayout=='large'" style="margin-right:20px" routerLink="/">
+            <mat-icon [class.d-large]="_eventServer.currentLayout=='large'" matTooltip="Home">home</mat-icon>
+        </button>
+
+        <span [class.d-large]="_eventServer.currentLayout=='large'"> {{ _eventServer.daystring }}</span>
+    </div>
+</div>
+  
+<div class="mat-elevation-z8">
+    <mat-table [dataSource]="codesList">
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Marke</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="code">
+            <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.code }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ts">
+            <mat-header-cell *matHeaderCellDef>Uhrzeit</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.ts.toDate() | date: 'dd.MM.yyyy HH:mm' }}</mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>

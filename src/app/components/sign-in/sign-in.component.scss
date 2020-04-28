@@ -1,0 +1,59 @@
+$faktor:  1;
+$faktor2: 1;
+$faktor3: 1;
+
+$faktor-large: 1.5;
+$faktor-large2: 1.4;
+
+// .mat-dialog-container {
+//     position: fixed;
+// }
+
+.isAdminIndicator {
+    background-color: red;
+}
+
+.mat-dialog-title.d-large {
+    // line-height: calc(32 * #{$faktor-large});
+    font-size: calc(20px * #{$faktor-large});
+}
+.mat-dialog-title {
+    // line-height: calc(32 * #{$faktor-large});
+    font-size: calc(20px * #{$faktor});
+}
+
+form.d-large {
+    // line-height: calc(32 * #{$faktor-large});
+    font-size: calc(16px * #{$faktor-large});
+}
+form {
+    // line-height: calc(32 * #{$faktor-large});
+    font-size: calc(16px * #{$faktor});
+}
+
+button.d-large {
+    // line-height: calc(32 * #{$faktor-large});
+    font-size: calc(14px * #{$faktor-large2});
+}
+button {
+    // line-height: calc(32 * #{$faktor-large});
+    font-size: calc(14px * #{$faktor});
+}
+
+.mat-button.d-large {
+    // line-height: calc(32 * #{$faktor-large});
+    font-size: calc(14px * #{$faktor-large2});
+}
+.mat-button {
+    // line-height: calc(32 * #{$faktor-large});
+    font-size: calc(14px * #{$faktor});
+}
+
+.infotext.d-large {
+    // line-height: calc(32 * #{$faktor-large});
+    font-size: calc(14px * #{$faktor-large2});
+}
+.infotext {
+    // line-height: calc(32 * #{$faktor-large});
+    font-size: calc(14px * #{$faktor});
+}

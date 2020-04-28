@@ -1,0 +1,117 @@
+$faktor:  1;
+$faktor2: 1;
+$faktor3: 1;
+
+$faktor-large: 2;
+$faktor2-large: 3.3;
+$faktor3-large: calc(#{$faktor - 1});    
+
+:host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: calc(20px * #{$faktor});
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+  .d-large {
+    font-size: calc(20px * #{$faktor-large});
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 8px 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .toolbar.d-large {
+    height: calc(56px * #{$faktor-large});
+  } 
+  .toolbar {
+    position: sticky;
+    height: calc(56px * #{$faktor});
+    margin: -2px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(216, 8, 8);
+    color: white;
+    font-weight: 600;
+  }
+
+  .toolbar.d-large img {
+    width: calc(40px * #{$faktor-large});
+    margin: 0 calc(8px * #{$faktor2-large});
+  }
+  .toolbar img {
+    width: calc(40px * #{$faktor});
+    margin: 0 calc(8px * #{$faktor2});
+  }
+
+
+a,
+a:visited,
+a:hover {
+    color: #1976d2;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #125699;
+}
+
+table {
+    width: 100%;
+}
+
+.toolbar-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left:-60px;
+    margin-top:-60px;
+    z-index: 1;
+}
+
+.mat-icon-button.d-large {
+    line-height: calc(24px * #{$faktor-large});
+    font-size: calc(14px * #{$faktor-large});
+    width: calc(40px * #{$faktor-large});
+    height: calc(40px * #{$faktor-large});
+}
+.mat-icon-button {
+    line-height: calc(24px * #{$faktor});
+    font-size: calc(14px * #{$faktor});
+    width: calc(40px * #{$faktor});
+    height: calc(40px * #{$faktor});
+}
+
+.mat-icon.d-large {
+    margin: 26px 8px;
+    width: calc(24px * #{$faktor-large});
+    height: calc(24px * #{$faktor-large});
+    font-size: calc(24px * #{$faktor-large});
+    // padding-right: calc(16px * #{$faktor3-large});
+}
+.mat-icon {
+    margin: 4px 9px;
+    width: calc(24px * #{$faktor});
+    height: calc(24px * #{$faktor});
+    font-size: calc(24px * #{$faktor});
+    // padding-right: calc(16px * #{$faktor3});
+}

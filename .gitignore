@@ -55,3 +55,5 @@ privatekey.*
 /publish.cmd
 cmd.txt
 /src/environments/env*
+/src/app/upload/node_modules
+/src/app/upload/config.js

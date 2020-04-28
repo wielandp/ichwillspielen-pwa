@@ -1,0 +1,74 @@
+<h2 mat-dialog-title [class.d-large]="data.layout=='large'" style="margin-bottom: 0px;">
+    Anmelden
+</h2>
+<mat-dialog-content>
+    <div *ngIf="auth.user$ | async; then authenticated else guest">
+        <!-- template will replace this div -->
+    </div>
+
+<!-- User NOT logged in -->
+<ng-template #guest>
+    <form #editForm="ngForm" [class.d-large]="data.layout=='large'">
+        <p style="margin-bottom: 3px;">Login für Buchung auf Rechnung</p>
+        
+        <firebase-ui
+        (signInSuccessWithAuthResult)="successCallback($event)"
+        (signInFailure)="errorCallback($event)">
+        </firebase-ui>
+
+        <!-- <button [class.d-large]="data.layout=='large'" (click)="auth.GoogleAuth(loginname, loginpw)">
+            <i class="fa fa-google"></i> Login mit Google
+        </button> -->
+        <br>
+        <br>
+        <mat-form-field [class.d-large]="data.layout=='large'">
+            <mat-label>Name</mat-label>
+            <input matInput ngModel name="loginname" [(ngModel)]="loginname">
+        </mat-form-field>
+        <mat-form-field [class.d-large]="data.layout=='large'">
+            <mat-label>Passwort</mat-label>
+            <input matInput type="password" ngModel name="loginpw" [(ngModel)]="loginpw">
+        </mat-form-field>
+        <br>
+        <button [class.d-large]="data.layout=='large'" [class.isAdminIndicator]="_eventServer.isAdmin" (click)="login1(loginname, loginpw)">Admin</button>
+    </form>
+</ng-template>
+
+<!-- User logged in -->
+<ng-template #authenticated>
+    <div *ngIf="auth.user$ | async as user">
+        <h3>Angemeldet als<br>{{ user.displayName }}<br>({{ user.email }})</h3>
+        <!-- <p>UID: {{ user.uid }}</p>
+        <p>TKL: {{ user.tkluser }} / {{ user.tklpw }}</p> -->
+        <button [class.d-large]="data.layout=='large'" mat-dialog-close mat-dialog-close='{ "close": 1}' (click)="auth.signOut()">Logout</button>
+
+        <button [class.d-large]="data.layout=='large'" style="margin-left: 20px;" [class.isAdminIndicator]="_eventServer.isAdmin" (click)="login(user.tkluser, user.tklpw )">Admin</button>
+
+        <!-- <button [class.d-large]="data.layout=='large'" style="margin-left: 20px;" (click)="goToLink('/abrechnung.php')">Abrech</button> -->
+        <!-- <a href="/abrechnung.php">Abrech</a> -->
+
+        <!-- <button style="margin-left: 20px;" mat-dialog-close mat-dialog-close='{ "codes": 1}'>Codes</button> -->
+        <!-- <button style="margin-left: 20px;" (click)="codes()">Codes</button> -->
+        <div class="infotext"  [class.d-large]="data.layout=='large'"style="margin-top: 10px;" *ngIf="codes">
+            {{codes.count18}} x 18€ - {{codes.count21}} x 21€ - {{codes.count26}} x 26€
+        </div>
+
+        <br>
+        <form #editForm="ngForm" [class.d-large]="data.layout=='large'">
+            <mat-form-field>
+                <mat-label>Layout</mat-label>
+                <mat-select ngModel name="layout" (selectionChange)="onChangeLayout($event.value)" [ngModel]="layout">      <!-- cdkFocusInitial -->
+                    <!-- <mat-option>Bitte auswählen</mat-option> -->
+                    <mat-option value="none">Normal</mat-option>
+                    <mat-option value="large">Groß</mat-option>
+                </mat-select>
+                <mat-hint>Schriftgröße etc.</mat-hint>
+            </mat-form-field>
+        </form>
+    </div>
+</ng-template>
+    
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button [class.d-large]="data.layout=='large'" mat-dialog-close mat-dialog-close='{ "close": 1}'>OK</button>
+</mat-dialog-actions>

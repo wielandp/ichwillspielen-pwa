@@ -1,0 +1,118 @@
+<h2 mat-dialog-title [class.d-large]="data.layout=='large'" style="margin-bottom: 0px;">
+    <span *ngIf="neueBuchung">Neue Buchung</span>
+    <span *ngIf="!neueBuchung">Buchung ändern</span>
+</h2>
+<mat-dialog-content>
+    <!-- <div *ngIf="auth.user$ | async">
+        Google
+    </div>
+    <div *ngIf="isAdmin">
+        Admin
+    </div> -->
+
+  <!-- <div class="container-fluid mb-5"> -->
+    <form #editForm="ngForm" [class.d-large]="data.layout=='large'">
+        <table>
+        <tr>
+            <td>Platz: </td><td>{{data.userid + 1}}</td>
+            <td> von </td><td>{{parseInt(data.zeit)}}:00 - <span *ngIf="!_eventServer.isAdmin">{{parseInt(data.zeit)+1}}:00 Uhr</span></td>
+        </tr>
+        <tr *ngIf="_eventServer.isAdmin">
+            <td> </td>
+            <td colspan="3">
+                <mat-form-field [class.d-large]="data.layout=='large'">
+                    <!-- <mat-label>Typ</mat-label> -->
+                    <mat-select ngModel #bis required name="bis" [(ngModel)]="data.zeitend">
+                        <!-- <mat-option>Bitte auswählen</mat-option> -->
+                        <mat-option value=8>8:00</mat-option>
+                        <mat-option value=9>9:00</mat-option>
+                        <mat-option value=10>10:00</mat-option>
+                        <mat-option value=11>11:00</mat-option>
+                        <mat-option value=12>12:00</mat-option>
+                        <mat-option value=13>13:00</mat-option>
+                        <mat-option value=14>14:00</mat-option>
+                        <mat-option value=15>15:00</mat-option>
+                        <mat-option value=16>16:00</mat-option>
+                        <mat-option value=17>17:00</mat-option>
+                        <mat-option value=18>18:00</mat-option>
+                        <mat-option value=19>19:00</mat-option>
+                        <mat-option value=20>20:00</mat-option>
+                        <mat-option value=21>21:00</mat-option>
+                        <mat-option value=22>22:00</mat-option>
+                        <mat-option value=23>23:00</mat-option>
+                    </mat-select>
+                    <!-- <mat-error>Typ darf nicht leer sein</mat-error> -->
+                </mat-form-field>
+            </td>  
+        </tr>
+        <tr><td>Datum: </td><td colspan="3">{{data.datum}}</td></tr>
+        </table>
+        <!-- <input type="hidden" name="id" [(ngModel)]="eventModel.id"> -->
+        <!-- Start: {{data.zeit}}:00 Uhr<br> -->
+        <!-- editForm: {{ editForm.value | json }}<br> -->
+        <!-- eventModel: {{ eventModel | json }}<br> -->
+        <!-- {{typ.class}}<br> -->
+        <mat-form-field [class.d-large]="data.layout=='large'">
+            <mat-label>Typ</mat-label>
+            <mat-select ngModel #typ required name="typ" [(ngModel)]="eventModel.typ">      <!-- cdkFocusInitial -->
+                <!-- <mat-option>Bitte auswählen</mat-option> -->
+                <mat-option value=0>Buchung Erwachsene</mat-option>
+                <mat-option value=1>Freie Buchung Jugend</mat-option>
+            </mat-select>
+            <mat-error>Typ darf nicht leer sein</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field [class.d-large]="data.layout=='large'">
+            <mat-label>Vorname</mat-label>
+            <input matInput [required]="!_eventServer.isAdmin" ngModel name="firstname" [(ngModel)]="eventModel.firstname">
+            <button mat-button mat-icon-button matSuffix (click)="clearFirstnameField()" *ngIf="eventModel.firstname">
+                <mat-icon>close</mat-icon></button>
+            <mat-error>Vorname darf nicht leer sein</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field [class.d-large]="data.layout=='large'">
+            <mat-label>Name</mat-label>
+            <input required matInput ngModel name="lastname" [(ngModel)]="eventModel.lastname">
+            <button mat-button mat-icon-button matSuffix (click)="clearLastnameField()" *ngIf="eventModel.lastname">
+                <mat-icon>close</mat-icon></button>
+            <mat-error>Name darf nicht leer sein</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field [class.d-large]="data.layout=='large'">
+            <mat-label>Code</mat-label>
+            <input matInput #telnumber [required]="( !neueBuchung || eventModel.typ == '0' ) &&  !_eventServer.isAdmin" pattern="^.{6}$" ngModel name="telnumber" [(ngModel)]="eventModel.telnumber">
+            <button mat-button mat-icon-button matSuffix (click)="clearTelnumberField()" *ngIf="eventModel.telnumber">
+                <mat-icon>close</mat-icon></button>
+            <mat-hint>6 Zeichen Code zum <span *ngIf="neueBuchung">Einlösen</span><span *ngIf="!neueBuchung">Stornieren</span></mat-hint>
+            <mat-error>Code muss <span *ngIf="neueBuchung">0 oder </span>6 Zeichen haben</mat-error>
+        </mat-form-field>
+        <!-- <mat-form-field> -->
+            <span *ngIf="neueBuchung && auth.user$ | async as user">
+                <button mat-icon-button style="background-color: goldenrod;"
+                        (click)="pay(eventModel.wert, user.uid)">
+                    {{ eventModel.wert }} € </button> 
+                <span *ngIf="eventModel.wert == 18"> x {{ codes.count18 }}</span>
+                <span *ngIf="eventModel.wert == 21"> x {{ codes.count21 }}</span>
+                <span *ngIf="eventModel.wert == 26"> x {{ codes.count26 }}</span>
+            </span>
+        <!-- </mat-form-field> -->
+        <!-- <br> -->
+        <!-- <pre>
+            Bei Problemen: 
+            Kontakt Wieland Pusch 
+            wieland@wielandpusch.de 
+            0157/78910386.
+        </pre> -->
+        <!-- Id: {{data.id}}<br> -->
+    </form>
+  <!-- </div> -->
+</mat-dialog-content>
+<mat-dialog-actions>
+    <!-- <button mat-button [disabled]="editForm.form.invalid" mat-dialog-close mat-dialog-close='{ "asdf": 1}'>Buchen</button> -->
+    <button mat-button [class.d-large]="data.layout=='large'" [disabled]="editForm.form.invalid || (!neueBuchung && !_eventServer.isAdmin)" (click)="onSubmit()">
+        <span *ngIf="neueBuchung">Buchen</span>
+        <span *ngIf="!neueBuchung">Ändern</span>
+    </button>
+    <button mat-button [class.d-large]="data.layout=='large'" [disabled]="neueBuchung || editForm.form.invalid" (click)="onDelete()">Löschen</button>
+    <button mat-button [class.d-large]="data.layout=='large'" mat-dialog-close mat-dialog-close='{ "close": 1}'>Abbrechen</button>
+</mat-dialog-actions>
