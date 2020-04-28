@@ -1,0 +1,1 @@
+(cd dist\project && tar cf - .) | ssh -i privatekey.ppk ftp.hosting.de "rm www/halle/pwa/* www/halle/pwa/assets/icons/*; tar xvf - -C www/halle/pwa/"
