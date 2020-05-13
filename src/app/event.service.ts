@@ -23,16 +23,17 @@ const _setDayString = (day) =>
 })
 export class EventService { 
   public isAdmin: boolean = false;
-  public minDay: Date = new Date("2019-09-23");
-  public maxDay: Date = new Date("2020-04-05");
+  public minDay: Date = new Date("2020-05-11");
+  public maxDay: Date = new Date("2020-05-24");
   public day: Date;
   public daystring: String;
   public oldUid: string = "";
   public oldEMail: string = "";
   public currentLayout: string;
-  public version: string = "0.3.9";
+  public version: string = "0.4.1";
   public neueVersion: boolean = false;
   public curVersion: boolean = false;
+  public timeZone: string;
 
   constructor(
     private http: HttpClient,
@@ -54,7 +55,14 @@ export class EventService {
       this.minDay.setHours(0,0,0,0);
       this.maxDay.setHours(0,0,0,0);
       console.log("minDay=", this.minDay);
-      // console.log("maxDay=", this.maxDay);
+      console.log("maxDay=", this.maxDay);
+
+      if (this.day > this.maxDay) {   // wenn Saison schon zu Ende ist, dann letzter Tag
+        this.day = new Date(this.maxDay);
+      } else if (this.day < this.minDay) {  // wenn noch nicht angefangen, erster Tag
+        this.day = new Date(this.minDay);
+      }
+  
       console.log("version="+this.version+ " minversion="+cfg.get("minversion")+" curVersion="+cfg.get("curversion"));
       if (this.version < cfg.get("minversion")) {
         console.log("neue Version muss installiert werden !!!");
@@ -76,6 +84,8 @@ export class EventService {
   getEvents(day: Date): Observable<IEvent[]> {
     let _start = Math.round(day.valueOf()/1000);
     let _end   = _start + 24*60*60;
+    this.timeZone = day.toTimeString().substring(12, 17);
+    console.log("timeZone="+this.timeZone);
     const params = new HttpParams()
       .set('start', _start.toString())
       .set('end', _end.toString());

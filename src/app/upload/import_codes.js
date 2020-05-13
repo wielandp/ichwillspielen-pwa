@@ -1,6 +1,6 @@
 // Imports
 const Firestore = require('@google-cloud/firestore');
-const serviceAccount = require('./serviceAccount.json');
+// const serviceAccount = require('./serviceAccount.json');
 // const firebaseConfig = require('./config.js');
 
 const firestore = new Firestore({
@@ -41,9 +41,9 @@ const parseall = async (p) => {  try {
         }
         if (line[0]) {
             user = line[0];
-            // console.log("user=", user);
+            console.log("user=", user);
             uid = await email2uid(user);
-            // console.log("user uid=", uid);
+            console.log("user uid=", uid);
         }
         data = CSV.parse(line[1].substr(1, line[1].length - 3));  // 
         data = data[0];     // only one line

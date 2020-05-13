@@ -293,8 +293,8 @@ export class DayCalComponent implements OnInit {
     this.events = data.events;
     for (var ev of data.events) {
       // ev.startdt = Date.parse(ev.start);
-      ev.startdt = new Date(ev.start);
-      ev.enddt   = new Date(ev.end);
+      ev.startdt = new Date(ev.start+this._eventServer.timeZone);
+      ev.enddt   = new Date(ev.end+this._eventServer.timeZone);
       ev.userId  = ev.userId[0];
       ev.typ     = ev.typ.toString();
       // console.log(ev);
