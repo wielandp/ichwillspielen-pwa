@@ -287,14 +287,29 @@ export class DayCalComponent implements OnInit {
     return p;
   }
 
+  // do not use Date.parse or constructor https://stackoverflow.com/questions/51715259/what-are-valid-date-time-strings-in-javascript/
+  // safari reads utc instead of localtime
+  parseDate(s:string):Date {
+    // console.log("year="+s.substring(0, 4)+" mon="+s.substring(5, 7)+" day="+s.substring(8, 10)+" h="+s.substring(11, 13)+" min="+s.substring(14, 16));
+    // return new Date(s);
+    return new Date(parseInt(s.substring(0, 4)),    // year
+                    parseInt(s.substring(5, 7)),    // month
+                    parseInt(s.substring(8, 10)),   // day
+                    parseInt(s.substring(11, 13)),  // hour
+                    parseInt(s.substring(14, 16))   // minute
+    );
+  }
+
   parseHttp(data, ac):IEventRow[] {
     // console.log("parseHttp");
     // console.log(data);
     this.events = data.events;
     for (var ev of data.events) {
       // ev.startdt = Date.parse(ev.start);
-      ev.startdt = new Date(ev.start+this._eventServer.timeZone);
-      ev.enddt   = new Date(ev.end+this._eventServer.timeZone);
+      // ev.startdt = new Date(ev.start+this._eventServer.timeZone);
+      ev.startdt = this.parseDate(ev.start);
+      ev.enddt   = this.parseDate(ev.end);
+      // console.log("parse start="+ev.start+" dt="+ev.startdt.toString());
       ev.userId  = ev.userId[0];
       ev.typ     = ev.typ.toString();
       // console.log(ev);

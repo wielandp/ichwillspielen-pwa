@@ -30,10 +30,10 @@ export class EventService {
   public oldUid: string = "";
   public oldEMail: string = "";
   public currentLayout: string;
-  public version: string = "0.4.1";
+  public version: string = "0.4.3";
   public neueVersion: boolean = false;
   public curVersion: boolean = false;
-  public timeZone: string;
+  // public timeZone: string;
 
   constructor(
     private http: HttpClient,
@@ -84,8 +84,8 @@ export class EventService {
   getEvents(day: Date): Observable<IEvent[]> {
     let _start = Math.round(day.valueOf()/1000);
     let _end   = _start + 24*60*60;
-    this.timeZone = day.toTimeString().substring(12, 17);
-    console.log("timeZone="+this.timeZone);
+    // this.timeZone = ".000"+day.toTimeString().substring(12, 17);
+    // console.log("timeZone="+this.timeZone);
     const params = new HttpParams()
       .set('start', _start.toString())
       .set('end', _end.toString());
