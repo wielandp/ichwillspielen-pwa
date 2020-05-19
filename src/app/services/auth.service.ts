@@ -133,7 +133,7 @@ export class AuthService {
   }
 
   getmyhist(uid:string) {
-    return this.afs.collection('log/uid:'+uid+'/hist').ref.orderBy("ts", "desc").limit(10).get(); //   snapshotChanges();
+    return this.afs.collection('log/uid:'+uid+'/hist').ref.orderBy("ts", "desc").limit(50).get(); //   snapshotChanges();
   }
 
   getmyCodes(uid:string) {

@@ -1,0 +1,16 @@
+<div class="toolbar-container mat-elevation-z8">
+    <!-- Toolbar [class]="currentLayout"  -->
+    <div class="toolbar" [class.d-large]="_eventServer.currentLayout=='large'" role="banner">
+        <button mat-icon-button [class.d-large]="_eventServer.currentLayout=='large'" style="margin-right:20px" routerLink="/">
+            <mat-icon [class.d-large]="_eventServer.currentLayout=='large'" matTooltip="Home">home</mat-icon>
+        </button>
+
+        <span [class.d-large]="_eventServer.currentLayout=='large'"> {{ _eventServer.daystring }}</span>
+    </div>
+</div>
+  
+<div class="mat-elevation-z8">
+    <h2>Version {{_eventServer.version}}</h2>
+    <p><a href="javascript:window.location.reload(true)">Update</a>
+    </p>
+</div>

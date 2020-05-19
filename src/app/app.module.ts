@@ -36,6 +36,7 @@ import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DayCalComponent } from './day-cal/day-cal.component';
 import { CodesListComponent } from './codes-list/codes-list.component';
+import { UpdateComponent } from './update/update.component';
 // import { MytransListComponent } from './mytrans-list/mytrans-list.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -79,6 +80,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     PageNotFoundComponent,
     DayCalComponent,
     CodesListComponent,
+    UpdateComponent,
   ],
   entryComponents: [
     DialogEditComponent,

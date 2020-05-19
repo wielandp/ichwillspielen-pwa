@@ -31,7 +31,7 @@
         <button mat-menu-item style="margin-right:20px" routerLink="/trans" [disabled]="!_eventServer.isAdmin">
             <mat-icon>view_list</mat-icon>Transaktionen
         </button>
-        <button mat-menu-item style="margin-right:20px" disabled>
+        <button mat-menu-item style="margin-right:20px" routerLink="/update">
           <mat-icon>info</mat-icon>Über V {{_eventServer.version}}
         </button>
       </mat-menu>
