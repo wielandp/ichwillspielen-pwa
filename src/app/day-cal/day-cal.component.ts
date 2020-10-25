@@ -236,7 +236,7 @@ export class DayCalComponent implements OnInit {
   onNext() {
     // console.log("onNext");
     if (this._eventServer.day < this._eventServer.maxDay) {
-      this._eventServer.day = new Date(this._eventServer.day.valueOf()+24*60*60*1000);
+      this._eventServer.day = new Date(this._eventServer.day.valueOf()+25*60*60*1000);
       // console.log("Day="+this.day);
       this.refresh();
     } else {
@@ -247,7 +247,7 @@ export class DayCalComponent implements OnInit {
   onPrev() {
     // console.log("onPrev");
     if (this._eventServer.day > this._eventServer.minDay) {
-      this._eventServer.day = new Date(this._eventServer.day.valueOf()-24*60*60*1000);
+      this._eventServer.day = new Date(this._eventServer.day.valueOf()-23*60*60*1000);
       // console.log("Day="+this.day);
       this.refresh();
     } else {
