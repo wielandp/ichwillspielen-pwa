@@ -56,7 +56,7 @@ const parseall = async (p) => {  try {
         console.log("user="+user+" uid="+uid+" data=", data);
         var col = await firestore.collection(`users/${uid}/codes`);
         var name = data[0]+"-"+data[1]+"-"+data[2];
-        col.doc(name).set({lfdnr: data[2], code: data[3], name: name, used: false, wert: data[1]}).then(doc => {
+        col.doc(name).set({lfdnr: data[2], code: data[3], name: name, used: false, wert: data[1], paid: false}).then(doc => {
             // console.log(`Added document with name: ${doc.id}`);
         }, error => {
             console.log(`Added document with error`);
