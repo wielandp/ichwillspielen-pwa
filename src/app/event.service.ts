@@ -30,7 +30,7 @@ export class EventService {
   public oldUid: string = "";
   public oldEMail: string = "";
   public currentLayout: string;
-  public version: string = "0.4.6";
+  public version: string = "0.4.7";
   public neueVersion: boolean = false;
   public curVersion: boolean = false;
   // public timeZone: string;
@@ -86,6 +86,7 @@ export class EventService {
     let _end   = _start + 24*60*60;
     // this.timeZone = ".000"+day.toTimeString().substring(12, 17);
     // console.log("timeZone="+this.timeZone);
+    // console.log("_start="+_start);
     const params = new HttpParams()
       .set('start', _start.toString())
       .set('end', _end.toString());
