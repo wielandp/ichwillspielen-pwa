@@ -79,7 +79,7 @@ export class DayCalComponent implements OnInit {
   }
 
   openEdit(param) {
-    // console.log("openEdit id="+param.id+" typ="+param.typ+" start="+param.start, param);
+    //console.log("openEdit id="+param.id+" typ="+param.typ+" start="+param.start, param);
     if (param.typ > 1) { return }
     let idx = this.events.findIndex((e) => e.id == param.id);
     // console.log("idx="+idx);
@@ -184,6 +184,7 @@ export class DayCalComponent implements OnInit {
       if (result) {
         let o = JSON.parse(result);
         // console.log("o=", o);
+        // console.log("em=", this.eventModel);
         // console.log("do something firstname="+this.eventModel.firstname+" lastname="+this.eventModel.lastname
         //     +" telnumber="+this.eventModel.telnumber+" typ="+this.eventModel.typ+" userid="+this.eventModel.userid);
         if (o.save) {
@@ -319,14 +320,16 @@ export class DayCalComponent implements OnInit {
     for(var h:number = 7; h<23; h++) {
       let p = ac.platz(h, data);
       // console.log("httpParse zeit="+zeroPad(h, 2));
+      this._eventServer.day.setHours(h);
       this.dataTable.push({
         zeit: zeroPad(h, 2),
-        start: this._eventServer.day.getTime()/1000 + h*60*60, 
+        start: this._eventServer.day.getTime()/1000,
         platz1: p[0], 
         platz2: p[1], 
         platz3: p[2]
       });
-    } 
+    }
+    this._eventServer.day.setHours(0); 
     this.dataTable.push({
       zeit: "23",
       start: 0, 
@@ -412,7 +415,7 @@ export class DayCalComponent implements OnInit {
     }
     // this.dataSource = ELEMENT_DATA;
     this._eventServer.setDayString();
-    // console.log("call getEvents with "+this.day);
+    // console.log("call getEvents with "+this._eventServer.day);
     this._eventServer.getEvents(this._eventServer.day)
       .subscribe(
         data => {
