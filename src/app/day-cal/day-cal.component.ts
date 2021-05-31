@@ -10,6 +10,7 @@ import { Event } from '../event';
 import { EventService } from '../event.service';
 import { AuthService } from '../services/auth.service';
 import * as Hammer from "hammerjs";
+//import { HammerModule } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 
 // const price = {

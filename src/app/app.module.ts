@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { NgModule, Injectable } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClientXsrfModule } from "@angular/common/http";
@@ -92,6 +92,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    HammerModule,
     FormsModule,
     ClipboardModule,
     AngularFireModule.initializeApp(environment.firebase),
