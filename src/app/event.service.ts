@@ -23,8 +23,8 @@ const _setDayString = (day) =>
 })
 export class EventService { 
   public isAdmin: boolean = false;
-  public minDay: Date = new Date("2020-09-28");
-  public maxDay: Date = new Date("2021-04-04");
+  public minDay: Date = new Date("2021-05-10");
+  public maxDay: Date = new Date("2021-05-24");
   public day: Date;
   public daystring: String;
   public oldUid: string = "";
