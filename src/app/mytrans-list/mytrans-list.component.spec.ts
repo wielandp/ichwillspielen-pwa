@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MytransListComponent } from './mytrans-list.component';
 
@@ -6,7 +6,7 @@ describe('MytransListComponent', () => {
   let component: MytransListComponent;
   let fixture: ComponentFixture<MytransListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MytransListComponent ]
     })
