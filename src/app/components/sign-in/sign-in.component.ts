@@ -108,6 +108,9 @@ export class SignInComponent implements OnInit {
       if (o.pw.length < 2) { o.pw = "" }
     } else { o = {name: "", pw: ""} }
 
+    if (this.loginname.length > 1) { o.name = this.loginname; }
+    if (this.loginpw.length > 1) { o.pw = this.loginpw; }
+
     return this.auth.updateUserData(event.authResult.user, o.name, o.pw);
   }
 

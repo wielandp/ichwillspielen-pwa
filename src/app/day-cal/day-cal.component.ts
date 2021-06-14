@@ -197,7 +197,13 @@ export class DayCalComponent implements OnInit {
             },
             error => {
               console.log("error!", error);
-              this._snackBar.open("Fehler beim Speichern: "+error.error.text, "Ok");
+              if (error.error.text.substring(0, 8) === "Achtung:") {
+                this._snackBar.open("Warnung: "+error.error.text, "Ok");
+                this.auth.log_booking(this._eventServer.version, this._eventServer.oldUid, this._eventServer.oldEMail, this.eventModel);
+                this.refresh();  
+              } else {
+                this._snackBar.open("Fehler beim Speichern: "+error.error.text, "Ok");
+              }
             },
           );
         }
