@@ -86,8 +86,9 @@
             <mat-hint>6 Zeichen Code zum <span *ngIf="neueBuchung">Einlösen</span><span *ngIf="!neueBuchung">Stornieren</span></mat-hint>
             <mat-error>Code muss <span *ngIf="neueBuchung">0 oder </span>6 Zeichen haben</mat-error>
         </mat-form-field>
+        
         <!-- <mat-form-field> -->
-            <span *ngIf="neueBuchung && auth.user$ | async as user">
+            <span *ngIf="neueBuchung && auth.user$ | async as user; else nouser">
                 <button mat-icon-button style="background-color: goldenrod;"
                         (click)="pay(eventModel.wert, user.uid)">
                     {{ eventModel.wert }} € </button> 
@@ -95,6 +96,12 @@
                 <span *ngIf="eventModel.wert == 21"> x {{ codes.count21 }}</span>
                 <span *ngIf="eventModel.wert == 26"> x {{ codes.count26 }}</span>
             </span>
+            <ng-template #nouser>
+                <button mat-icon-button style="background-color: goldenrod;"
+                        (click)="pay(eventModel.wert, '1')">
+                    pay</button> 
+                    {{ eventModel.wert + 1 }} €
+            </ng-template>
         <!-- </mat-form-field> -->
         <!-- <br> -->
         <!-- <pre>
