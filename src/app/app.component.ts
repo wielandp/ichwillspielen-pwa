@@ -7,6 +7,8 @@ import { AuthService } from './services/auth.service';
 // import { Observable, of as observableOf} from 'rxjs';
 // import { isDefined } from '@angular/compiler/src/util';
 
+//declare var paypal;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
