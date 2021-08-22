@@ -23,14 +23,14 @@ const _setDayString = (day) =>
 })
 export class EventService { 
   public isAdmin: boolean = false;
-  public minDay: Date = new Date("2021-05-10");
-  public maxDay: Date = new Date("2021-07-24");
+  public minDay: Date = new Date("2021-10-04");
+  public maxDay: Date = new Date("2022-04-03");
   public day: Date;
   public daystring: String;
   public oldUid: string = "";
   public oldEMail: string = "";
   public currentLayout: string;
-  public version: string = "0.4.8";
+  public version: string = "0.5.1";
   public neueVersion: boolean = false;
   public curVersion: boolean = false;
   // public timeZone: string;
