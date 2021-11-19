@@ -272,7 +272,10 @@ export class DayCalComponent implements OnInit {
       { name: "[ "+lprice+"€ ]", class: "platz"+lprice, id: -1, typ: "-1" },
     ];
     for (let ev of data.events) {
-      if (h >= ev.startdt.getHours() && h*100 < (ev.enddt.getHours()*100+ev.enddt.getMinutes())) {
+      console.log("h="+h+" ev.startdt="+ev.startdt+" ev.enddt="+ev.enddt+" hours="+ev.enddt.getHours())
+      var enddtgetHours = ev.enddt.getHours();
+      if (enddtgetHours == 0) { enddtgetHours = 24; } 
+      if (h >= ev.startdt.getHours() && h*100 < (enddtgetHours*100+ev.enddt.getMinutes())) {
         let fn = "";
         if (ev.firstname != "") {
           fn = ", "+ev.firstname
@@ -324,7 +327,7 @@ export class DayCalComponent implements OnInit {
     }
 
     this.dataTable = [];
-    for(var h:number = 7; h<23; h++) {
+    for(var h:number = 7; h<=23; h++) {
       let p = ac.platz(h, data);
       // console.log("httpParse zeit="+zeroPad(h, 2));
       this._eventServer.day.setHours(h);
@@ -337,13 +340,13 @@ export class DayCalComponent implements OnInit {
       });
     }
     this._eventServer.day.setHours(0); 
-    this.dataTable.push({
-      zeit: "23",
-      start: 0, 
-      platz1: {name: "", class: "", id: ""}, 
-      platz2: {name: "", class: "", id: ""}, 
-      platz3: {name: "", class: "", id: ""}
-    });
+    // this.dataTable.push({
+    //   zeit: "23",
+    //   start: 0, 
+    //   platz1: {name: "", class: "", id: ""}, 
+    //   platz2: {name: "", class: "", id: ""}, 
+    //   platz3: {name: "", class: "", id: ""}
+    // });
   // console.log(ELEMENT_DATA);
     // console.log(this.dataTable);
 
