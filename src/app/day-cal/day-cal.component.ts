@@ -246,7 +246,10 @@ export class DayCalComponent implements OnInit {
     if (this._eventServer.day < this._eventServer.maxDay) {
       this._eventServer.day = new Date(this._eventServer.day.valueOf()+25*60*60*1000);
       // console.log("Day="+this.day);
+      //this._eventServer.setDayString();
+      //this._snackBar.open("Datum "+this._eventServer.daystring, "Ok");
       this.refresh();
+      //this._eventServer.daystring = this._eventServer.daystring+".";
     } else {
       this._snackBar.open("Ende der Saison.", "Ok");
     }

@@ -49,12 +49,12 @@ const parseall = async (p) => {  try {
             // console.log("user uid=", uid);
         }
         
-        // var col = await firestore.collection(`$key`);
-        // col.doc(name).set({paid: true}).then(doc => {
-        //     console.log(`Added document with name: ${doc.id}`);
-        // }, error => {
-        //     console.log(`Added document with error`);
-        // });
+        firestore.collection(key).doc(name)
+            .update({paid: true}).then(doc => {
+            console.log(`Set paid ${name}`);
+        }, error => {
+            console.log(`Update document with error ${key} ${name}`);
+        });
     };
   }
   catch (error) {
