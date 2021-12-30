@@ -69,8 +69,8 @@ export class DayCalComponent implements OnInit {
     public auth: AuthService,
     public dialog: MatDialog,
   ) {
-    this.eventModel     = new Event(0, undefined, undefined, "", "", "", "1", 0, 0); // data from edit dialog
-    this.eventModelPref = new Event(0, undefined, undefined, "", "", "", "1", 0, 0); // defaults for dialog
+    this.eventModel     = new Event(0, undefined, undefined, "", "", "", "", "1", 0, 0); // data from edit dialog
+    this.eventModelPref = new Event(0, undefined, undefined, "", "", "", "", "1", 0, 0); // defaults for dialog
     // console.log("minDay="+this.minDay);
     // console.log("maxDay="+this.maxDay);
   }
@@ -101,18 +101,20 @@ export class DayCalComponent implements OnInit {
     // console.log("openEdit userid="+param.userid+" len="+window.history.length);
     // console.log("openEdit wert="+this.mystrip(param.name, 2, 4));
     let wert = +this.mystrip(param.name, 2, 4);
-    let zeitend = ""+param.zeit + 1;
+    let zeitend = ""+(parseInt(param.zeit) + 1);
+    // console.log("openEdit idx="+idx+" zeitend="+zeitend);
     if (idx >= 0) {
       zeitend = ""+this.events[idx].enddt.getHours();
+      if (zeitend === "0") { zeitend = "24"; }
+      // console.log("openEdit zeitend2="+zeitend);
     }
     // console.log("openEdit wert="+wert);
-    console.log("openEdit zeit="+param.zeit+" zeitend="+zeitend);
+    // console.log("openEdit zeit="+param.zeit+" zeitend="+zeitend);
     let ref = this.dialog.open(DialogEditComponent,
         { data: { id: param.id, 
                   datum: this._eventServer.daystring, 
                   userid: param.userid, 
                   zeit: param.zeit, 
-                  zeitend: zeitend,
                   start: param.start, 
                   wert: wert, 
                   layout: this._eventServer.currentLayout,
@@ -129,10 +131,11 @@ export class DayCalComponent implements OnInit {
     }
     if (idx < 0) {
       if (!pref || !o) {
-        ref.componentInstance.eventModel = new Event(0, undefined, undefined, "", "", "", "1", 0, wert);
+        ref.componentInstance.eventModel = new Event(0, undefined, undefined,
+           zeitend, "", "", "", "1", 0, wert);
       } else {
         ref.componentInstance.eventModel = new Event(0, undefined, undefined, 
-          o.firstname, o.lastname,
+          zeitend, o.firstname, o.lastname,
           o.telnumber, o.typ, 0, wert);
       }
       // ref.componentInstance.eventModel = new Event(0, undefined, undefined, this.eventModelPref.firstname, this.eventModelPref.lastname,
@@ -143,18 +146,27 @@ export class DayCalComponent implements OnInit {
       if (pref && o.telnumber) {
         tel = o.telnumber;
       }
-      ref.componentInstance.eventModel = new Event(e.id, e.start, e.end, e.firstname, e.lastname, tel, e.typ, e.userid, wert);
+      zeitend = ""+this.events[idx].enddt.getHours();
+      if (zeitend === "0") { zeitend = "24"; }
+      // console.log("openEdit zeitend="+zeitend);
+      ref.componentInstance.eventModel = new Event(e.id, e.start, e.end, zeitend, e.firstname, e.lastname, tel, e.typ, e.userid, wert);
       // console.log("eventModel=", ref.componentInstance.eventModel);
     }
 
     ref.beforeClosed().subscribe(() => {
       let start: number = param.start;
-      let end: number = start + 60*60;
-      // console.log("beforeClosed id="+param.id+" daystring:"+this.daystring+" param.start:"+param.start+" start="+start+" userid="+param.userid);
+      let end: number = start + (parseInt(ref.componentInstance.eventModel.zeitend)-parseInt(param.zeit))*60*60;
+      // console.log("beforeClosed id="+param.id
+      //     +" param.start:"+param.start
+      //     +" start="+start
+      //     +" zeitend:"+ref.componentInstance.eventModel.zeitend
+      //     +" param.zeit:"+param.zeit
+      //     +" userid="+param.userid);
       // console.log("ref.componentInstance.eventModel.id="+ref.componentInstance.eventModel.id);
       this.eventModel = new Event(
         ref.componentInstance.eventModel.id, 
-        start, end, 
+        start, end,
+        ref.componentInstance.eventModel.zeitend, 
         ref.componentInstance.eventModel.firstname, 
         ref.componentInstance.eventModel.lastname, 
         ref.componentInstance.eventModel.telnumber,
@@ -169,7 +181,8 @@ export class DayCalComponent implements OnInit {
               typ: ref.componentInstance.eventModel.typ
         }));
         this.eventModelPref = new Event(
-          0, start, end, 
+          0, start, end,
+          "",
           ref.componentInstance.eventModel.firstname, 
           ref.componentInstance.eventModel.lastname, 
           ref.componentInstance.eventModel.telnumber,
@@ -275,7 +288,7 @@ export class DayCalComponent implements OnInit {
       { name: "[ "+lprice+"€ ]", class: "platz"+lprice, id: -1, typ: "-1" },
     ];
     for (let ev of data.events) {
-      console.log("h="+h+" ev.startdt="+ev.startdt+" ev.enddt="+ev.enddt+" hours="+ev.enddt.getHours())
+      // console.log("h="+h+" ev.startdt="+ev.startdt+" ev.enddt="+ev.enddt+" hours="+ev.enddt.getHours())
       var enddtgetHours = ev.enddt.getHours();
       if (enddtgetHours == 0) { enddtgetHours = 24; } 
       if (h >= ev.startdt.getHours() && h*100 < (enddtgetHours*100+ev.enddt.getMinutes())) {
@@ -336,6 +349,7 @@ export class DayCalComponent implements OnInit {
       this._eventServer.day.setHours(h);
       this.dataTable.push({
         zeit: zeroPad(h, 2),
+        zeitend: zeroPad(h+1, 2),
         start: this._eventServer.day.getTime()/1000,
         platz1: p[0], 
         platz2: p[1], 
@@ -351,7 +365,7 @@ export class DayCalComponent implements OnInit {
     //   platz3: {name: "", class: "", id: ""}
     // });
   // console.log(ELEMENT_DATA);
-    // console.log(this.dataTable);
+    // console.log("dataTable:", this.dataTable);
 
     ac.isLoading = false;
     return this.dataTable;

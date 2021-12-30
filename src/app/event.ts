@@ -14,6 +14,7 @@ export interface IEvent {
       public id: number,
       public start: number,
       public end: number,
+      public zeitend: string,
       public firstname: string,
       public lastname: string,
       public telnumber: string,

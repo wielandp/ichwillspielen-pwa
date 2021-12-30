@@ -143,16 +143,16 @@ export class AuthService {
 
   codes() {
       let codes = {count: 0, count18: 0, count21: 0, count26: 0};
-      console.log("auth codes");
+      // console.log("auth codes");
       this.user$.subscribe( async user => {
-        console.log("codes user=", user);
+        // console.log("codes user=", user);
         codes.count=0; codes.count18=0; codes.count21=0; codes.count26=0;
         if (user) {
-            console.log("auth codes uid="+user.uid, user);
+            // console.log("auth codes uid="+user.uid, user);
 //            if (!user.layout) { return }  // beim Anmelden kommen zwei Änderungen, aber nur einmal codes zählen
             (await this.afs.collection('users/'+user.uid+'/codes').ref.where('used', '==', false).get()).forEach(doc => {
                 let code = doc.data();
-                console.log("doc: ", code);
+                // console.log("doc: ", code);
                 codes.count++;
                 if (code.wert == 18) codes.count18++;
                 if (code.wert == 21) codes.count21++;

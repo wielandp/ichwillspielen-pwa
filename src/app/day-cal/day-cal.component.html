@@ -62,7 +62,7 @@
         <mat-header-cell [class.d-large]="_eventServer.currentLayout=='large'" *matHeaderCellDef class="mat-header-platz1"> Platz 1 </mat-header-cell>
         <mat-cell [class.d-large]="_eventServer.currentLayout=='large'" *matCellDef="let element">
           <button mat-raised-button [class.d-large]="_eventServer.currentLayout=='large'"
-              (click)="openEdit({id: element.platz1.id, userid: 0, zeit: element.zeit, start: element.start, name: element.platz1.name, typ: element.platz1.typ})">
+              (click)="openEdit({id: element.platz1.id, userid: 0, zeit: element.zeit, zeitend: element.zeitend, start: element.start, name: element.platz1.name, typ: element.platz1.typ})">
             <div [class]="element.platz1.class" [class.d-large]="_eventServer.currentLayout=='large'"> {{element.platz1.name}}</div>
           </button> </mat-cell>
       </ng-container>
