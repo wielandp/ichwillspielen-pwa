@@ -22,7 +22,7 @@
         <ng-container matColumnDef="paid">
             <mat-header-cell *matHeaderCellDef>Bezahlt</mat-header-cell>
             <mat-cell *matCellDef="let element">
-                <input type="checkbox" [ngModel]="element.paid">
+                <input type="checkbox" [ngModel]="element.paid" onclick="return false;">
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef="ts">
