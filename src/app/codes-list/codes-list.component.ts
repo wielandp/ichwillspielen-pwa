@@ -8,6 +8,7 @@ class Code {
   ts: Date;
   name: string;
   code: string;
+  paid: boolean;
 }
 
 @Component({
@@ -17,7 +18,7 @@ class Code {
 })
 export class CodesListComponent implements OnInit {
   codesList: any[];
-  displayedColumns: string[] = [ 'name', 'code', 'ts' ];
+  displayedColumns: string[] = [ 'name', 'code', 'paid', 'ts' ];
 
   constructor(
     public _eventServer: EventService,

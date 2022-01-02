@@ -48,6 +48,7 @@ Thumbs.db
 
 privatekey.*
 *.csv
+~*
 
 # to publish only code
 /e2e

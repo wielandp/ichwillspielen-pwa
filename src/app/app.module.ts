@@ -12,7 +12,7 @@ import { MaterialModule } from "./material/material.module";
 import { EventService } from "./event.service";
 import { environment } from '../environments/environment';
 import { DialogEditComponent } from './dialog-edit/dialog-edit.component';
-import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
  
 // import { //HammerGestureConfig, 
 //         HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
@@ -32,7 +32,7 @@ import { AuthService } from "./services/auth.service";
 // currently there is a bug while building the app with --prod
 // - https://github.com/RaphaelJenni/FirebaseUI-Angular/issues/76
 // the plugin exposes the two libraries as well. You can use those:
-import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
+import { FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DayCalComponent } from './day-cal/day-cal.component';
 import { CodesListComponent } from './codes-list/codes-list.component';

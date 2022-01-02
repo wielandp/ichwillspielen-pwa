@@ -19,6 +19,12 @@
             <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.code }}</mat-cell>
         </ng-container>
+        <ng-container matColumnDef="paid">
+            <mat-header-cell *matHeaderCellDef>Bezahlt</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <input type="checkbox" [ngModel]="element.paid">
+            </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="ts">
             <mat-header-cell *matHeaderCellDef>Uhrzeit</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.ts.toDate() | date: 'dd.MM.yyyy HH:mm' }}</mat-cell>
