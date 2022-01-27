@@ -7,6 +7,8 @@ import { catchError } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
 import { Event } from './event';
 
+import { sha256 } from 'js-sha256';
+
 const href = 'https://www.tklhalle.de/cal.php';
 const _wc: boolean = true;
 
@@ -30,7 +32,8 @@ export class EventService {
   public oldUid: string = "";
   public oldEMail: string = "";
   public currentLayout: string;
-  public version: string = "0.5.5";
+  public secret: string = "";
+  public version: string = "0.5.6";
   public neueVersion: boolean = false;
   public curVersion: boolean = false;
   // public timeZone: string;
@@ -50,10 +53,12 @@ export class EventService {
     console.log("Day="+this.day);
     
     this.auth.getAllCfg().then( cfg => {
+      this.secret = cfg.get("secret");
       this.minDay = new Date(cfg.get("mindate"));
       this.maxDay = new Date(cfg.get("maxdate"));
       this.minDay.setHours(0,0,0,0);
       this.maxDay.setHours(0,0,0,0);
+      console.log("secret=", this.secret);
       console.log("minDay=", this.minDay);
       console.log("maxDay=", this.maxDay);
 
@@ -100,7 +105,11 @@ export class EventService {
   saveEvent(ev: Event, uid: string) {
     console.log("saveEvent id="+ev.id);
     let tn = ev.telnumber;
-    if (tn === '') { tn = 'pwa'; } 
+    if (tn === '') { tn = 'pwa'; }
+    let se = '';
+    if (uid) {
+      se = uid+sha256(this.secret+uid+ev.start.toString()+ev.userid.toString());
+    }
     const params = new HttpParams()
       .set('action'   , "save")
       .set('id'       , ev.id.toString())
@@ -112,6 +121,7 @@ export class EventService {
       .set('typ'      , ev.typ)
       .set('uid'      , ev.userid.toString())
       .set('body'     , 'ngFB:'+uid)
+      .set('se'       , se)
       ;
     // let url:string = `${href}?action=save&`;
     // console.log("url="+href+"?"+params.toString());

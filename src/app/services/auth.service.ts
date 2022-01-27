@@ -31,7 +31,7 @@ export class AuthService {
         switchMap(user => {
             // Logged in
             if (user) {
-                // console.log("user change uid="+user.uid+" user=", user);
+                console.log("user change uid="+user.uid+" user=", user);
                 // console.log("constructor if user");
                 this.updateUserData(user, "", "");
                 return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
@@ -67,7 +67,7 @@ export class AuthService {
   }
 
   getAllCfg() {
-      let data;
+//      let data;
       // console.log("getAllCfg");
 
       let doc = this.afs.doc('users/all');
