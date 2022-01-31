@@ -33,7 +33,7 @@ export class EventService {
   public oldEMail: string = "";
   public currentLayout: string;
   public secret: string = "";
-  public version: string = "0.5.6";
+  public version: string = "0.5.7";
   public neueVersion: boolean = false;
   public curVersion: boolean = false;
   // public timeZone: string;
@@ -120,7 +120,7 @@ export class EventService {
       .set('telnumber', tn)
       .set('typ'      , ev.typ)
       .set('uid'      , ev.userid.toString())
-      .set('body'     , 'ngFB:'+uid)
+      .set('body'     , 'ngFB')
       .set('se'       , se)
       ;
     // let url:string = `${href}?action=save&`;
@@ -131,13 +131,18 @@ export class EventService {
         .pipe(catchError(this.errorHandler));
   }
 
-  deleteEvent(ev: Event) {
+  deleteEvent(ev: Event, uid: string) {
     console.log("deleteEvent id="+ev.id);
+    let se = '';
+    if (uid) {
+      se = uid+sha256(this.secret+uid+ev.id.toString()+ev.typ.toString());
+    }
     const params = new HttpParams()
       .set('action'   , "delete")
       .set('id'       , ev.id.toString())
       .set('telnumber', ev.telnumber)
       .set('typ'      , ev.typ)
+      .set('se'       , se)
     ;
     // console.log("url="+href+"?"+params.toString());
     return this.http.request<string>("POST", href, { params, withCredentials: _wc })

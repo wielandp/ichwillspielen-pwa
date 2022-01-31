@@ -228,7 +228,7 @@ export class DayCalComponent implements OnInit {
         // }
 
         if (o.delete) {
-            this._eventServer.deleteEvent(this.eventModel).subscribe(
+            this._eventServer.deleteEvent(this.eventModel, this._eventServer.oldUid).subscribe(
             data => {
               // console.log("success!", data);
               this.refresh();
