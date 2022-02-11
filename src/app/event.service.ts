@@ -33,7 +33,7 @@ export class EventService {
   public oldEMail: string = "";
   public currentLayout: string;
   public secret: string = "";
-  public version: string = "0.5.7";
+  public version: string = "0.5.8";
   public neueVersion: boolean = false;
   public curVersion: boolean = false;
   // public timeZone: string;
