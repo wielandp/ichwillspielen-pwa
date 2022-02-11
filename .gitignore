@@ -61,3 +61,5 @@ cmd.txt
 /src/app/upload/node_modules
 /src/app/upload/config.js
 /src/app/upload/serviceAccount.json
+/src/app/upload/notpaid.xlsx
+/src/app/upload/plan open codes.xlsx
