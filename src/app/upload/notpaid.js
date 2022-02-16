@@ -11,7 +11,7 @@ const firestore = new Firestore({
 const parseall = async (p) => {  try {
     var query = await firestore.collection('users').get();
     var doc = await query.docs;
-    console.log("code;paid;used;ts;email;name;key;doc");
+    console.log("code;paid;used;ts;email;name;key;doc;wert");
     for (let index = 0; index < doc.length; index++) {
         const log = doc[index];
         // console.log("log=", log.ref);
@@ -26,11 +26,12 @@ const parseall = async (p) => {  try {
                 const l = cd[index];
                 if (l.get('used') && !l.get('paid')) {
                     const d = l.get('ts').toDate();
-                    console.log(`${l.ref.id};${l.get('paid')};${l.get('used')};${d.toLocaleDateString('de-DE')} ${d.toLocaleTimeString('de-DE')};${log.get('email')};${log.get('displayName')};users/${log.ref.id}/codes;${l.ref.id}`);    
+                    console.log(`${l.ref.id};${l.get('paid')};${l.get('used')};${d.toLocaleDateString('de-DE')} ${d.toLocaleTimeString('de-DE')};${log.get('email')};${log.get('displayName')};users/${log.ref.id}/codes;${l.ref.id};"=TEIL(INDIREKT(ADRESSE(ZEILE();SPALTE()-1));3;2)+0"`);
                 }
             }
         }
-    } 
+    }
+    console.log(`;;;;;;;;"=SUMME(INDIREKT(ADRESSE(2;SPALTE())&ZEICHEN(58)&ADRESSE(ZEILE()-1;SPALTE())))"`); 
   }
   catch (error) {
     console.log(error);
